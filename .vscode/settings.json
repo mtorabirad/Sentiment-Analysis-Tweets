@@ -1,0 +1,21 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.enabled": true,
+    "cSpell.words": [
+        "chunker",
+        "curr",
+        "funcs",
+        "groupby",
+        "lemmatize",
+        "lemmatized",
+        "lemmatizer",
+        "numpy",
+        "pfuncs",
+        "scal",
+        "sklearn",
+        "spacy",
+        "tseries",
+        "vectorize"
+    ]
+}

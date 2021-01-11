@@ -1,0 +1,21 @@
+txt_file_path: 'DATA\text_from_API.txt'
+num_tweets_to_process: 10000
+JSON_already_avail: True
+JSON_file_path: 'DATA\API_data.json'
+CSV_file_path: 'DATA\df.csv'
+training_file_path: 'DATA\training_file.csv'
+
+ticker: UAL
+time_zone: 'US/Eastern'
+beg_of_trading: '09:30:00'
+end_of_trading: '15:55:00'
+fin_data_already_avail: False
+fin_data_file_path: 'DATA\fin_data_file.csv'
+
+chunk_size: 1000
+n_jobs: 1
+backend: 'multiprocessing'
+prefer: 'processes'
+
+test_size: 0.2
+
