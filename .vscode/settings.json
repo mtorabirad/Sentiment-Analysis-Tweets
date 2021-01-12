@@ -1,21 +1,3 @@
-{
-    "python.linting.pylintEnabled": false,
-    "python.linting.pycodestyleEnabled": true,
-    "python.linting.enabled": true,
-    "cSpell.words": [
-        "chunker",
-        "curr",
-        "funcs",
-        "groupby",
-        "lemmatize",
-        "lemmatized",
-        "lemmatizer",
-        "numpy",
-        "pfuncs",
-        "scal",
-        "sklearn",
-        "spacy",
-        "tseries",
-        "vectorize"
-    ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:68e7a1a733e4154b235cab67e7de572c767bff36e8c11da3b22b372bcc5027c4
+size 439

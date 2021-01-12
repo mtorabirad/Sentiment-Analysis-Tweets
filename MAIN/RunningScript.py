@@ -8,6 +8,7 @@ from PREPROCESS.preprocessing_funcs import get_df, obtain_and_append_fin_data
 from NLP.perform_NLP import perform_NLP
 from ML.build_models import build_SVM
 from sklearn.model_selection import train_test_split
+import numpy as np
 
 config = FileIO.read_yaml(r'CONFIG\config_data.yml')
 
@@ -38,19 +39,23 @@ if __name__ == "__main__":
 
     bk_tst_start, bk_tst_end = min(X_test.index), max(X_test.index)    
     buy_hold_return = fin_data.loc[bk_tst_end]['Close'] - fin_data.loc[bk_tst_start]['Close']
-    position = []
-    position.append(1)
+    position = np.zeros(len(y_test_pred))
+    position[0] = 0
     for i in range(1, len(y_test_pred)):
         if y_test_pred[i] == 1:
             if (position[i-1] == 1) or (position[i-1] == 0):
-                position.append(1)
+                position[i] = 1
             else:
-                position.append(0)
+                position[i] = 0
         elif y_test_pred[i] == -1:
             if (position[i-1] == -1) or (position[i-1] == 0):
-                position.append(-1)
+                position[i] = -1
             else:
-                position.append(0)
+                position[i] = 0
+    #return_ = np.zeros(len(y_test_pred))
+    #for i in range(1, len(y_test_pred)):
+    #    if position[i] != position[i-1]:
+    #        return_
 
-    
+
 print('CPU Time = ', datetime.now() - startTime)

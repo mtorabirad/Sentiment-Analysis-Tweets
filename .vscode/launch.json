@@ -1,15 +1,3 @@
-{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        }
-    ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:bfefa3c4d1c5d06c56683037961a6571d9b04aa3d52ae4e6d6c74a27374eda6b
+size 477

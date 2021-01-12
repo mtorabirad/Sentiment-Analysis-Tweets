@@ -1,6 +1,6 @@
 txt_file_path: 'DATA\text_from_API.txt'
 num_tweets_to_process: 10000
-JSON_already_avail: True
+JSON_already_avail: False
 JSON_file_path: 'DATA\API_data.json'
 CSV_file_path: 'DATA\df.csv'
 training_file_path: 'DATA\training_file.csv'
