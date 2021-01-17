@@ -61,7 +61,7 @@ if __name__ == "__main__":
     X_test_std = scaler.fit_transform(X_test)
 
     plt.scatter(X_train_std, y_train, label='train', alpha=0.5, marker="s")
-    #plt.scatter(X_test_std, y_test, label='test', alpha=0.7, marker="o")
+    # plt.scatter(X_test_std, y_test, label='test', alpha=0.7, marker="o")
     plt.show()
 
     exit()
@@ -69,21 +69,20 @@ if __name__ == "__main__":
     for curr_kernel in kernel_list:
 
         SVM = build_SVM(X_train, y_train, curr_kernel)
-        dump(SVM, r'SAVED_MODELS\SVM.joblib')  
-        SVM_upload = load('SVM.joblib') 
+        dump(SVM, r'SAVED_MODELS\SVM.joblib')
+        SVM_upload = load('SVM.joblib')
         y_train_pred = SVM_upload.predict(X_train_std)
         y_test_pred = SVM_upload.predict(X_test_std)
         print(curr_kernel)
         print(f"train score {SVM_upload.score(X_train_std, y_train)}")
-        print(f"train confusison matrix \n {confusion_matrix(y_train, y_train_pred)}")
+        print(f"train confusison matrix \n {confusion_matrix(y_train,
+                                            y_train_pred)}")
 
         print(f"test score {SVM_upload.score(X_test_std, y_test)}")
-        print(f"test confusison matrix \n {confusion_matrix(y_test, y_test_pred)}")
+        print(f"test confusison matrix \n {confusion_matrix(y_test,
+                                           y_test_pred)}")
         print('----------')
 
-    """  plt.scatter(X_test.index, y_test_pred, label='y_test_pred', alpha=0.5, marker="s")
-    plt.scatter(X_test.index, y_test, label='y_test', alpha=0.5, marker="o")
-    plt.legend() """
     # SVM.score(X_train_std, y_train)
 
     fin_data_test = fin_data.tail(len(y_test_pred))

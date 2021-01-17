@@ -28,11 +28,14 @@ def get_df():
 
 def obtain_and_append_fin_data(df):
     # Get financial data
-    # Group by one column and apply a different aggregation function on each of the other columns.
-    # https://pandas.pydata.org/pandas-docs/version/0.23.1/generated/pandas.core.groupby.DataFrameGroupBy.agg.html
+    # Group by one column and apply a different aggregation function
+    # on each of the other columns.
+    # https://pandas.pydata.org/pandas-docs/version/0.23.1/generated/
+    # pandas.core.groupby.DataFrameGroupBy.agg.html
     # df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
     df[["eff_sent_score"]] = df[["eff_sent_score"]].apply(pd.to_numeric)
-    date_score = df.groupby('influencing_date').agg({'eff_sent_score': ['mean']})
+    date_score = df.groupby('influencing_date').agg({'eff_sent_score':
+                                                    ['mean']})
 
     date_score.columns = date_score.columns.droplevel()
     date_score = date_score.rename(columns={'mean': 'mean_sent_score'})
@@ -103,20 +106,21 @@ def _extract_relevant_info(input):
     num_listed = []
     num_media = []
     num_favourite = []
-    #### 
+    ####
     num_reply = []
     num_retweet = []
     num_like = []
     num_quote = []
-    
-    list_names = ["date_time", "tweet", 'username', "num_follower", 'num_friend',
-                 'num_status', 'num_favourite', 'num_listed', 'num_media', 'num_favourite',
-                 'num_reply', 'num_retweet', 'num_like', 'num_quote']
-    
+
+    list_names = ["date_time", "tweet", 'username', "num_follower",
+                  'num_friend', 'num_status', 'num_favourite',
+                  'num_listed', 'num_media', 'num_favourite',
+                  'num_reply', 'num_retweet', 'num_like', 'num_quote']
+
     col_names = list_names
     col_names[0] = 'date_time(UTC)'
-    
-    # Extract items from the list of dictionaries. You can use also list 
+
+    # Extract items from the list of dictionaries. You can use also list
     # comprehension or map operations.
     # https://stackoverflow.com/questions/7900882/extract-item-from-list-of-dictionaries
     for curr_item in list_of_dicts:
@@ -136,14 +140,15 @@ def _extract_relevant_info(input):
         num_like.append(curr_item["likeCount"])
         num_quote.append(curr_item["quoteCount"])
 
-    df = pd.DataFrame(np.column_stack([date_time, tweet, username, num_follower,
-                                       num_friend, num_status, num_favourite, num_listed, num_media,
-                                       num_favourite, num_reply, num_retweet, num_like, num_quote]),
-                               columns=col_names)
+    df = pd.DataFrame(np.column_stack([date_time, tweet, username,
+                                       num_follower, num_friend, num_status,
+                                       num_favourite, num_listed, num_media,
+                                       num_favourite, num_reply, num_retweet,
+                                       num_like, num_quote]),
+                      columns=col_names)
 
     """ df = pd.DataFrame(list(zip(date_time, tweet, num_follower)),
                       columns=col_names) """
-   
 
     return df.sort_index(ascending=False)
 
