@@ -22,6 +22,6 @@ def build_SVM(X_train, y_train, kernel_):
         print(i, ':', np.average(scores)) """
     svc = SVC(kernel=kernel_, random_state=0)
     model = svc.fit(X_train_std, y_train.values.ravel())
-    #y_test_pred = model.predict(X_test)
+    # y_test_pred = model.predict(X_test)
 
     return model

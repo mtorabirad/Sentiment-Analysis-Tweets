@@ -2,6 +2,7 @@ import json
 import re
 import pandas as pd
 from pandas.tseries.offsets import BusinessDay
+import numpy as np
 from UTIL import FileIO
 config = FileIO.read_yaml(r'CONFIG\config_data.yml')
 from GETDATA.connect_with_API import get_fin_data
@@ -27,6 +28,10 @@ def get_df():
 
 def obtain_and_append_fin_data(df):
     # Get financial data
+    # Group by one column and apply a different aggregation function on each of the other columns.
+    # https://pandas.pydata.org/pandas-docs/version/0.23.1/generated/pandas.core.groupby.DataFrameGroupBy.agg.html
+    # df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
+    df[["eff_sent_score"]] = df[["eff_sent_score"]].apply(pd.to_numeric)
     date_score = df.groupby('influencing_date').agg({'eff_sent_score': ['mean']})
 
     date_score.columns = date_score.columns.droplevel()
@@ -83,20 +88,62 @@ def _convert_txt_JSON(input_file_path, num_tweets_to_process, JSON_file_path):
 
 
 def _extract_relevant_info(input):
-    with open(config['JSON_file_path'], 'r') as f:
-        dict_ = json.load(f)
+    # with open(config['JSON_file_path'], 'r') as f:
+    with open(input, 'r') as f:
+        list_of_dicts = json.load(f)
 
     date_time = []
     tweet = []
+    # within username
+    username = []
     num_follower = []
-
-    for curr_item in dict_:
+    num_friend = []
+    num_status = []
+    num_favourite = []
+    num_listed = []
+    num_media = []
+    num_favourite = []
+    #### 
+    num_reply = []
+    num_retweet = []
+    num_like = []
+    num_quote = []
+    
+    list_names = ["date_time", "tweet", 'username', "num_follower", 'num_friend',
+                 'num_status', 'num_favourite', 'num_listed', 'num_media', 'num_favourite',
+                 'num_reply', 'num_retweet', 'num_like', 'num_quote']
+    
+    col_names = list_names
+    col_names[0] = 'date_time(UTC)'
+    
+    # Extract items from the list of dictionaries. You can use also list 
+    # comprehension or map operations.
+    # https://stackoverflow.com/questions/7900882/extract-item-from-list-of-dictionaries
+    for curr_item in list_of_dicts:
         date_time.append(pd.to_datetime(curr_item["date"]))
         tweet.append(re.sub(r"http\S+", "", curr_item["content"]))
-        num_follower.append(curr_item["user"]["followersCount"])
 
-    df = pd.DataFrame(list(zip(date_time, tweet, num_follower)),
-                      columns=["date_time(UTC)", "tweet", "num_follower"])
+        username.append(curr_item["user"]["username"])
+        num_follower.append(curr_item["user"]["followersCount"])
+        num_friend.append(curr_item["user"]["friendsCount"])
+        num_status.append(curr_item["user"]["statusesCount"])
+        num_favourite.append(curr_item["user"]["favouritesCount"])
+        num_listed.append(curr_item["user"]["listedCount"])
+        num_media.append(curr_item["user"]["mediaCount"])
+
+        num_reply.append(curr_item["replyCount"])
+        num_retweet.append(curr_item["retweetCount"])
+        num_like.append(curr_item["likeCount"])
+        num_quote.append(curr_item["quoteCount"])
+
+    df = pd.DataFrame(np.column_stack([date_time, tweet, username, num_follower,
+                                       num_friend, num_status, num_favourite, num_listed, num_media,
+                                       num_favourite, num_reply, num_retweet, num_like, num_quote]),
+                               columns=col_names)
+
+    """ df = pd.DataFrame(list(zip(date_time, tweet, num_follower)),
+                      columns=col_names) """
+   
 
     return df.sort_index(ascending=False)
 

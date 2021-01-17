@@ -1,8 +1,8 @@
 txt_file_path: 'DATA\text_from_API.txt'
-num_tweets_to_process: 10000
+num_tweets_to_process: 100000
 JSON_already_avail: False
 JSON_file_path: 'DATA\API_data.json'
-CSV_file_path: 'DATA\df.csv'
+CSV_file_path: 'DATA\tweet_info_and_sent_scores.csv'
 training_file_path: 'DATA\training_file.csv'
 
 ticker: UAL
@@ -18,4 +18,6 @@ backend: 'multiprocessing'
 prefer: 'processes'
 
 test_size: 0.2
+
+splits_already_avail: False
 
